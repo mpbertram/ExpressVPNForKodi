@@ -17,13 +17,14 @@ import sys
 import xbmc
 import xbmcaddon
 import xbmcgui
+import xbmcvfs
 
 class Utils:
 	def __init__(self):
 		self.addon = xbmcaddon.Addon()
 		self.addonName  = self.addon.getAddonInfo("name")
 		self.addonPath = self.addon.getAddonInfo("path")
-		self.iconPath = xbmc.translatePath("%s/%s" % (self.addonPath, "resources/icon.png"))
+		self.iconPath = xbmcvfs.translatePath("%s/%s" % (self.addonPath, "resources/icon.png"))
 		self.failedIconPath = "DefaultIconError.png"
 
 	def getArgC(self):
@@ -42,7 +43,7 @@ class Utils:
 		xbmcgui.Dialog().ok(heading, line1, line2, line3)
 
 	def showYesNo(self, heading, line1, line2 = "", line3 = "", nolabel = "No", yeslabel = "Yes"):
-		return xbmcgui.Dialog().yesno(heading, line1, line2, line3, nolabel, yeslabel) == 1
+		return xbmcgui.Dialog().yesno(heading, line1, nolabel, yeslabel)
 
 	def showSelect(self, heading, list):
 		return xbmcgui.Dialog().select(heading, list)

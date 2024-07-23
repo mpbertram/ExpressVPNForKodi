@@ -15,7 +15,7 @@
 
 import re
 import subprocess
-import utils
+from . import utils
 
 _utils = utils.Utils()
 
@@ -28,7 +28,7 @@ class ExpressVPN:
 		return subprocess.call(["expressvpn", "disconnect"]) == 0
 
 	def status(self):
-		return subprocess.check_output(["expressvpn", "status"])
+		return subprocess.check_output(["expressvpn", "status"]).decode("utf-8")
 
 	def isConnected(self):
 		connected = False

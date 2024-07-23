@@ -13,9 +13,9 @@
 #     You should have received a copy of the GNU General Public License
 #     along with ExpressVPN For Kodi.  If not, see <http://www.gnu.org/licenses/>.
 
-import resources.lib.expressvpn as expressvpn
-import resources.lib.settings as settings
-import resources.lib.utils as utils
+from resources.lib import expressvpn
+from resources.lib import settings
+from resources.lib import utils
 import sys
 
 _expressvpn = expressvpn.ExpressVPN()
@@ -62,7 +62,7 @@ if (__name__ == "__main__"):
 			# Otherwise build list and prompt user
 			else:
 				serverList = _settings["additional"].split(",")
-				serverList = map(lambda x: x.strip(), serverList)
+				serverList = list(map(lambda x: x.strip(), serverList))
 				serverList.insert(0, defaultServer)
 
 				serverIndex = _utils.showSelect("Select Server", serverList)
