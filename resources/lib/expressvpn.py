@@ -22,13 +22,13 @@ _utils = utils.Utils()
 class ExpressVPN:
 
 	def connect(self, server):
-		return subprocess.call(["expressvpn", "connect", server]) == 0
+		return subprocess.call(["expressvpnctl", "connect", server]) == 0
 	
 	def disconnect(self):
-		return subprocess.call(["expressvpn", "disconnect"]) == 0
+		return subprocess.call(["expressvpnctl", "disconnect"]) == 0
 
 	def status(self):
-		return subprocess.check_output(["expressvpn", "status"]).decode("utf-8")
+		return subprocess.check_output(["expressvpnctl", "status"]).decode("utf-8")
 
 	def isConnected(self):
 		connected = False
@@ -41,7 +41,7 @@ class ExpressVPN:
 		return re.search("Connected\ to\ (.+)", self.status()).group(1) 
 
 	def serverList(self):
-		return subprocess.check_output("expressvpn list | awk '{gsub(/[\\t]+/,\"\t\")}1' | awk 'BEGIN {FS=\"\\t\"}; {print $1 \" - \" $2}'", shell = True)
+		return subprocess.check_output("expressvpnctl get regions | awk '{gsub(/[\\t]+/,\"\t\")}1' | awk 'BEGIN {FS=\"\\t\"}; {print $1}'", shell = True)
 
 	def showUsage(self):
-		_utils.showTextviewer("Usage: expressvpn [ connect | disconnect | status | list ] [ server ]\n\nexpressvpn connect\nexpressvpn connect usny\nexpressvpn connect \"US - Chicago\"\nexpressvpn disconnect\nexpressvnp status\nexpressvpn list")
+		_utils.showTextviewer("Usage: expressvpnctl [ connect | disconnect | status | get regions ] [ server ]")
